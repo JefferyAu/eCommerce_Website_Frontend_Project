@@ -1,0 +1,106 @@
+[
+  {
+    "pid": 1,
+    "name": "Samsung 三星 110吋 電視機 UA110S9AJXZK",
+    "description": "面板/背光：\tLED\n屏幕尺寸：\t110吋\n解像度：\t3840 x 2160\n曲面屏幕：\t否\n電視訊號接收制式：\t數碼\n智能電視：\t是\nHDMI輸入(機背)：\t4組\n機身尺寸：\t2601.2 x 1811.3 x 662.2mm",
+    "imageUrl": "https://www.price.com.hk/space/product/188000/188938_9oujbm_4.jpg",
+    "price": 6790.00,
+    "hasStock": true
+  },
+  {
+    "pid": 2,
+    "name": "TAD Reference One 座地式喇叭",
+    "description": "有線/無線:有線\n頻率:250 Hz and 2 kHz\n輸入功率:300W\n靈敏度:115dB\n阻抗:4.1Ω\n尺寸:554 mm × 1,293 mm × 698 mm\n重量:150kg",
+    "imageUrl": "https://www.price.com.hk/space/product/149000/149421_256173_4.jpg",
+    "price": 5960.00,
+    "hasStock": true
+  },
+  {
+    "pid": 3,
+    "name": "Sony PlayStation 5 Slim Digital Edition (數碼版)",
+    "description": "(PS5 Slim Digital Edition - without a disc drive 不含光碟機)",
+    "imageUrl": "https://www.price.com.hk/space/product/602000/602970_84hq5s_4.jpg",
+    "price": 27.50,
+    "hasStock": false
+  },
+  {
+    "pid": 4,
+    "name": "Leica Noctilux-M 50 f/1.2 ASPH. Silver Chrome (Special Edition) for M-mount",
+    "description": "定焦/變焦：\t定焦\n最短焦距：\t50mm\n最長焦距：\t50mm\n適用接環：\tM-mount\n濾鏡直徑：\t49",
+    "imageUrl": "https://www.price.com.hk/space/product/488000/488809_w0cmn2_4.jpg",
+    "price": 7180.00,
+    "hasStock": true
+  },
+  {
+    "pid": 5,
+    "name": "PhaseOne XT IQ4 150MP Camera System",
+    "description": "像素：\t15100萬像素\n顯示屏：\t3.2吋\n感光元件：\tCMOS (BSI)\n儲存媒體：\tXQD, CFexpress, SD, Capture One",
+    "imageUrl": "https://www.price.com.hk/space/product/593000/593336_fraq41_4.jpg",
+    "price": 4990.00,
+    "hasStock": true
+  },
+  {
+    "pid": 6,
+    "name": "Panasonic 樂聲 專業用Solid Shine 3-DLP 投影機 PT-RQ32K",
+    "description": "類型：\t商用投影機\n亮度 (ANSI流明)：\t27000\n輸出解像度：\t4K+ (5120x3200)(Quad Pixel Drive: ON)\n對比度：\t20000:1\n投影尺寸：\t70-1000吋\n投影光源：\t雷射\n重量：\t83kg\n尺寸：\t700 x 418 x 1250mm",
+    "imageUrl": "https://www.price.com.hk/space/product/258000/258414_4e7ofr_4.jpg",
+    "price": 8370.00,
+    "hasStock": true
+  },
+  {
+    "pid": 7,
+    "name": "Samsung 三星 146吋 4K The Wall All-in-One IAB Indoor LED P0.84 LH008IABMUS",
+    "description": "面板/背光：\tLED\n屏幕尺寸：\t146吋\n解像度：\t3840 x 2160\n對比度：\t7000:1\n亮度：\t500cd/㎡\n可視角度 (水平)：\t160°\n可視角度 (垂直)：\t140°",
+    "imageUrl": "https://www.price.com.hk/space/product/589000/589783_qhohbz_4.png",
+    "price": 9999.80,
+    "hasStock": false
+  },
+  {
+    "pid": 8,
+    "name": "Apple Vision Pro (1TB)",
+    "description": "類型：\t主機\n顯示面板：\tmicro-OLED\n螢幕刷新率：\t100Hz\n瞳距 (IPD)：\t51-75mm\n適用平台：\tvisionOS\n重量：\t650g",
+    "imageUrl": "https://www.price.com.hk/space/product/616000/616069_s77ore_4.png",
+    "price": 275.00,
+    "hasStock": true
+  },
+  {
+    "pid": 9,
+    "name": "MacBook Air",
+    "description": "Strikingly thin and fast so you can work, play, or create anywhere.",
+    "imageUrl": "https://www.price.com.hk/space/product/587000/587149_n4fh5i_4.png",
+    "price": 6790.00,
+    "hasStock": true
+  },
+  {
+    "pid": 20,
+    "name": "iPhone 13 ProMax",
+    "description": "Enter A17 Pro. Game‑changing chip. Groundbreaking performance.",
+    "imageUrl": "https://www.price.com.hk/space/product/587000/587149_n4fh5i_4.png",
+    "price": 8599.00,
+    "hasStock": true
+  },
+  {
+    "pid": 21,
+    "name": "iPhone 13 ProMax Checkput",
+    "description": "Enter A17 Pro. Game‑changing chip. Groundbreaking performance.",
+    "imageUrl": "https://www.price.com.hk/space/product/587000/587149_n4fh5i_4.png",
+    "price": 8599.00,
+    "hasStock": true
+  },
+  {
+    "pid": 24,
+    "name": "MacBook Pro",
+    "description": "Enter A17 Pro. Game‑changing chip. Groundbreaking performance.",
+    "imageUrl": "https://www.price.com.hk/space/product/587000/587149_n4fh5i_4.png",
+    "price": 8599.00,
+    "hasStock": true
+  },
+  {
+    "pid": 25,
+    "name": "Apple Vision Pro",
+    "description": "Enter A17 Pro. Game‑changing chip. Groundbreaking performance.",
+    "imageUrl": "https://www.price.com.hk/space/product/587000/587149_n4fh5i_4.png",
+    "price": 8599.00,
+    "hasStock": true
+  }
+]
