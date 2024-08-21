@@ -6,6 +6,6 @@ export const getFurnitureDto = async () =>{
     const response = await axios.get<FurnitureDto[]>("http://localhost:8080/public/product")
     return response.data
   }catch (err){
-    console.log(err)
+    throw err;
   }
 }
