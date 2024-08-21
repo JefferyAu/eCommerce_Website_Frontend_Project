@@ -1,6 +1,6 @@
-import {FurnitureDto} from "../../../data/product/FurnitureDto.type.ts";
+import {ProductDto} from "../../../data/product/ProductDto.type.ts";
 import {useState} from "react";
-import * as FurnitureDtoApi from "../../../../src/api/FurnitureDtoApi.ts";
+import * as ProductDtoApi from "../../../../src/api/ProductDtoApi.ts";
 import Header from "../../component/Header";
 import {Container} from "@mui/material";
 import ProductListContainer from "./component/ProductListContainer.tsx";
@@ -9,14 +9,14 @@ import {useNavigate} from "react-router-dom";
 
 export default function ProductListingPage(){
 
-  const [getFurnitureDtoList, setFurnitureDtoList] = useState<FurnitureDto[] | undefined>(undefined);
+  const [getProductDtoList, setProductDtoList] = useState<ProductDto[] | undefined>(undefined);
 
   const navigate = useNavigate();
 
-  const getFurnitureDto = async () =>{
+  const getProductDto = async () =>{
     try{
-      const responseData = await FurnitureDtoApi.getFurnitureDto();
-      setFurnitureDtoList(responseData);
+      const responseData = await ProductDtoApi.getProductDto();
+      setProductDtoList(responseData);
     }catch (err){
       console.log(err);
       navigate("/error");
@@ -24,7 +24,7 @@ export default function ProductListingPage(){
   }
 
   useState(()=>{
-    getFurnitureDto();
+    getProductDto();
   })
 
   return(
@@ -32,8 +32,8 @@ export default function ProductListingPage(){
       <Header/>
       <Container>
         {
-          getFurnitureDtoList ?
-            <ProductListContainer getFurnitureDtoList={getFurnitureDtoList}/>
+          getProductDtoList ?
+            <ProductListContainer getProductDtoList={getProductDtoList}/>
             :<LoadingContainer/>
         }
       </Container>

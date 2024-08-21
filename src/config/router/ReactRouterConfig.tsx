@@ -8,7 +8,8 @@ import ErrorPage from "../../ui/page/ErrorPage";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProductListingPage/>
+    element: <ProductListingPage/>,
+    errorElement:<ErrorPage/>
   },
   { ///:userId
     path: "/product/:productId",

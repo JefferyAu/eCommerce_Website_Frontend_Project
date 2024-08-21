@@ -1,33 +1,48 @@
-import {useState} from "react";
-import {FurnitureDto} from "../../../data/product/FurnitureDto.type.ts";
 import Header from "../../component/Header";
-import * as FurnitureDtoApi from "../../../api/FurnitureDtoApi.ts";
 import ProductDetailContainer from "./component/ProductDetailContainer.tsx";
+import {Container} from "@mui/material";
+import {useEffect, useState} from "react";
+import {ProductDetailDto} from "../../../data/product/ProductDto.type.ts";
+import * as ProductApi from "../../../api/ProductDtoApi.ts";
+import {useNavigate, useParams} from "react-router-dom";
 import LoadingContainer from "../../component/LoadingContainer.tsx";
 
+type Params = {
+  productId: string
+}
 
 export default function ProductDetailPage(){
+  const [productDetailDto,setProductDetailDto] = useState<ProductDetailDto | undefined>(undefined)
+  const params = useParams<Params>();
 
-  const [getFurnitureDtoById,setFurnitureDtoById] = useState<FurnitureDto[]| undefined>(undefined);
+  const navigate = useNavigate();
 
-  const getFurnitureDto = async () =>{
-    const responseData = await FurnitureDtoApi.getFurnitureDto();
-    setFurnitureDtoById(responseData);
+  const getProductByPid = async () =>{
+    if(params.productId) {
+      try{
+      const responseData = await ProductApi.getProductByPid(params.productId);
+      setProductDetailDto(responseData);
+      }catch (err){
+        console.log(err);
+        navigate('/error');
+      }
+    }
   }
 
-  useState(()=>{
-    getFurnitureDto();
-  })
+  useEffect(()=> {
+    getProductByPid();
+  },[])
 
   return(
     <>
       <Header/>
-      {
-        getFurnitureDtoById ?
-          <ProductDetailContainer getFurnitureDtoById={getFurnitureDtoById}/>
-          : <LoadingContainer/>
-      }
-
+      <Container>
+        {
+          productDetailDto ?
+            <ProductDetailContainer productDetailDto={productDetailDto}/>
+            : <LoadingContainer/>
+        }
+      </Container>
     </>
   )
 }

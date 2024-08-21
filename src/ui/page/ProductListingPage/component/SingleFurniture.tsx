@@ -1,20 +1,24 @@
-
-import {FurnitureDto} from "../../../../data/product/FurnitureDto.type.ts";
 import {Box, Card, CardActionArea, CardContent, Chip, Link, Typography} from "@mui/material";
+import {ProductDto} from "../../../../data/product/ProductDto.type.ts";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
-  getFurnitureDto:FurnitureDto
+  getProductDto:ProductDto
 }
 
-export default function SingleFurniture({getFurnitureDto}:Props){
+export default function SingleFurniture({getProductDto}:Props){
+  const navigate = useNavigate();
+
   return(
       <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
+        <CardActionArea
+          onClick={()=>{navigate(`/product/${getProductDto.pid}`)}}
+        >
           <Box
             sx={{
               width: "100%",
               height: 240,
-              backgroundImage: `url(${getFurnitureDto.imageUrl})`,
+              backgroundImage: `url(${getProductDto.imageUrl})`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "contain"
@@ -22,9 +26,9 @@ export default function SingleFurniture({getFurnitureDto}:Props){
           >
           </Box>
           <CardContent>
-            <Link href={`/product/${getFurnitureDto.pid}`}>
+            <Link href={`/product/${getProductDto.pid}`}>
             <Typography gutterBottom variant="h5" component="div">
-              {getFurnitureDto.name}
+              {getProductDto.name}
             </Typography>
             </Link>
             <Typography variant="body2" color="text.secondary">
@@ -32,11 +36,11 @@ export default function SingleFurniture({getFurnitureDto}:Props){
               species, ranging across all continents except Antarctica
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {getFurnitureDto.price}
+              {getProductDto.price}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
 
-              {getFurnitureDto.hasStock ? <Chip label="有貨" color="primary" />:
+              {getProductDto.hasStock ? <Chip label="有貨" color="primary" />:
                 <Chip
                   label="售罄"
                   sx={{

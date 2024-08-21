@@ -1,20 +1,20 @@
 import SingleFurniture from "./SingleFurniture.tsx";
-import {FurnitureDto} from "../../../../data/product/FurnitureDto.type.ts";
 import Grid from '@mui/material/Unstable_Grid2';
+import {ProductDto} from "../../../../data/product/ProductDto.type.ts";
 
 type Props ={
-  getFurnitureDtoList:FurnitureDto[]
+  getProductDtoList:ProductDto[]
 }
 
-export default function ProductListContainer({getFurnitureDtoList}:Props){
+export default function ProductListContainer({getProductDtoList}:Props){
   return(
     <>
       <h1> All Product</h1>
       <Grid container spacing={2}>
         {
-          getFurnitureDtoList.map((value) => (
+          getProductDtoList.map((value) => (
             <Grid  md={4} sm={6} xs={12} display="flex" justifyContent="center" alignItems="center">
-            <SingleFurniture key={value.pid} getFurnitureDto={value}/>
+            <SingleFurniture key={value.pid} getProductDto={value}/>
             </Grid>
           ))
         }
