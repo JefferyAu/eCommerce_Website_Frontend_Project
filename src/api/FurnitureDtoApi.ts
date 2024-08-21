@@ -1,5 +1,5 @@
 import axios from "axios";
-import {FurnitureDto} from "../data/FurnitureDto.type.ts";
+import {FurnitureDto} from "../data/product/FurnitureDto.type.ts";
 
 export const getFurnitureDto = async () =>{
   try{

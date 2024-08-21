@@ -1,9 +1,0 @@
-#top-bar{
-    padding: 25px;
-}
-img.brandLogo{
-    background-image: url("https://www.ikea.com.hk/webroot/img/logos/IKEA_logo.svg?v=1723531235");
-    background-size: contain;
-    width: 100px;
-    border-radius: 10px;
-}

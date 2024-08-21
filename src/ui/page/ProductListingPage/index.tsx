@@ -1,10 +1,10 @@
-import Header from "../../component/Header";
-import CarouselsBanner from "./component/CarouselsBanner.tsx";
-import ProductList from "../../component/ProductList";
-import {Container} from "react-bootstrap";
-import {FurnitureDto} from "../../../data/FurnitureDto.type.ts";
+import {FurnitureDto} from "../../../data/product/FurnitureDto.type.ts";
 import {useState} from "react";
 import * as FurnitureDtoApi from "../../../../src/api/FurnitureDtoApi.ts";
+import Header from "../../component/Header";
+import {Container} from "@mui/material";
+import ProductListContainer from "./component/ProductListContainer.tsx";
+import LoadingContainer from "../../component/LoadingContainer.tsx";
 
 export default function ProductListingPage(){
 
@@ -22,13 +22,12 @@ export default function ProductListingPage(){
   return(
     <>
       <Header/>
-      <CarouselsBanner/>
       <Container>
         {
-          getFurnitureDtoList &&
-            <ProductList getFurnitureDtoList={getFurnitureDtoList}/>
+          getFurnitureDtoList ?
+            <ProductListContainer getFurnitureDtoList={getFurnitureDtoList}/>
+            :<LoadingContainer/>
         }
-
       </Container>
     </>
   )
