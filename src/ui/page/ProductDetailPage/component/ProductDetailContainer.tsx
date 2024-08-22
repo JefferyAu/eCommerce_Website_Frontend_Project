@@ -1,6 +1,9 @@
 import {Box, Button, Divider, Paper, Stack, Typography} from "@mui/material";
 import QuantitySelector from "../../../component/QuantitySelector.tsx";
 import {ProductDetailDto} from "../../../../data/product/ProductDto.type.ts";
+import {useContext} from "react";
+import {LoginUserContext} from "../../../../context/LoginUserContext.ts";
+import {useNavigate} from "react-router-dom";
 
 
 type Props = {
@@ -9,6 +12,25 @@ type Props = {
 
 
 export default function ProductDetailContainer({productDetailDto}:Props){
+  const loginUser = useContext(LoginUserContext);
+  const navigate = useNavigate();
+
+  const renderAddCartBtn = () =>{
+    if(loginUser === null){
+      return(
+        <Button
+          color="success"
+          onClick={()=>{
+            navigate('/login')
+          }}
+        >
+          Add to cart
+        </Button>
+      )
+    }else {
+      return <Button color="success"> Add to cart </Button>
+    }
+  }
 
   return(
     <Paper sx={{
@@ -38,9 +60,9 @@ export default function ProductDetailContainer({productDetailDto}:Props){
             </Typography>
             <Stack direction="row">
               <QuantitySelector/>
-              <Button color="success">
-                Add to cart
-              </Button>
+              {
+                renderAddCartBtn()
+              }
             </Stack>
           </Box>
         </Stack>
