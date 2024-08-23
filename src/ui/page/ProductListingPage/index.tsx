@@ -25,6 +25,7 @@ export default function ProductListingPage(){
 
   useState(()=>{
     getProductDto();
+    document.title = "SAVOY";
   })
 
   return(

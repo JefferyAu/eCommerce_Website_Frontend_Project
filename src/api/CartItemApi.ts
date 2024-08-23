@@ -1,14 +1,16 @@
-import * as FirebaseAuthService from "../authService/FirebaseAuthService"
+import * as FirebaseAuthService from "../authService/FirebaseAuthService.ts"
 import axios from "axios";
+import {CartItemDto} from "../data/CartItem/CartItem.type.ts";
 
 const baseUrl = "http://localhost:8080";
 
-const token = await FirebaseAuthService.getAccessToken();
-
-const getUserCart = async () => {
-  await axios.get(`${baseUrl}/cart`,
+export const getUserCart = async () => {
+  const response = await axios.get<CartItemDto[]>(`${baseUrl}/cart`,
     {
-      headers: {Authorization: `Bearer${token}`}
+      headers: {
+        Authorization: `Bearer ${await FirebaseAuthService.getAccessToken()}`
+      }
     }
   )
+  return response.data;
 }

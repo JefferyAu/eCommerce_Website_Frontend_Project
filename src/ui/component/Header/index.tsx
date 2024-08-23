@@ -1,19 +1,32 @@
-import {AppBar, Box, Button, CircularProgress, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts"
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartDrawer from "../ShoppingCartDrawer.tsx";
 
 export default function Header(){
+  const [drawerOpen,setDrawerOpen] = useState<boolean>(false);
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
+
+  const closeDrawer = () =>{
+    setDrawerOpen(false);
+  }
 
   const renderContainer=() =>{
     if(loginUser){
       return(
         <>
         <Typography variant="body1">{loginUser.email}</Typography>
+        <IconButton
+        onClick={()=>{
+          setDrawerOpen(true);
+        }}
+        >
+          <ShoppingCartIcon/>
+        </IconButton>
         <Button
           color="error"
           variant="contained"
@@ -43,6 +56,7 @@ export default function Header(){
   }
 
   return(
+    <>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{
         backgroundColor: "white"
@@ -67,5 +81,7 @@ export default function Header(){
         </Toolbar>
       </AppBar>
     </Box>
+      <ShoppingCartDrawer open={drawerOpen} closeDrawer={closeDrawer}/>
+    </>
   )
 }

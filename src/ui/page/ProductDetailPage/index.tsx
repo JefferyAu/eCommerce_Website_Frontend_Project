@@ -22,6 +22,7 @@ export default function ProductDetailPage(){
       try{
       const responseData = await ProductApi.getProductByPid(params.productId);
       setProductDetailDto(responseData);
+      document.title = responseData.name;
       }catch (err){
         console.log(err);
         navigate('/error');
