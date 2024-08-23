@@ -4,6 +4,7 @@ import {useContext} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts"
 
+
 export default function Header(){
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
@@ -30,7 +31,9 @@ export default function Header(){
         onClick={()=>{
         navigate('/login')
       }}>
-        Login
+        <Typography variant="body1" sx={{color:"black"}}>
+          Sign in
+        </Typography>
       </Button>
     }else {
       return(
@@ -41,17 +44,23 @@ export default function Header(){
 
   return(
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{
+        backgroundColor: "white"
+      }}>
+        <Toolbar >
+          <Typography variant="h6" component="div" sx={{
+            flexGrow: 1 ,
+            display: "flex",
+            justifyContent: "center"
+          }} >
             <Link
               to="/"
             style={{
               textDecoration: "none",
-              color: "inherit"
+              color: "black",
             }}
             >
-              IKEA
+              SAVOY
             </Link>
           </Typography>
           {renderContainer()}

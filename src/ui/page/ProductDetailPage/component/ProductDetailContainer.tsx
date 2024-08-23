@@ -1,7 +1,7 @@
 import {Box, Button, Divider, Paper, Stack, Typography} from "@mui/material";
 import QuantitySelector from "../../../component/QuantitySelector.tsx";
 import {ProductDetailDto} from "../../../../data/product/ProductDto.type.ts";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../../context/LoginUserContext.ts";
 import {useNavigate} from "react-router-dom";
 
@@ -14,6 +14,23 @@ type Props = {
 export default function ProductDetailContainer({productDetailDto}:Props){
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
+  const [quantity,setQuantity] = useState<number>(1)
+
+  const handleQuantityMinus = () => {
+    if(quantity > 1){
+      setQuantity((prevState)=>(
+        prevState - 1
+      ));
+    }
+  }
+
+  const handleQuantityPlugs = () =>{
+     if(quantity < productDetailDto.stock){
+      setQuantity((prevState)=>(
+        prevState + 1
+      ));
+     }
+  }
 
   const renderAddCartBtn = () =>{
     if(loginUser === null){
@@ -59,7 +76,7 @@ export default function ProductDetailContainer({productDetailDto}:Props){
               Price: {productDetailDto.price.toLocaleString()}
             </Typography>
             <Stack direction="row">
-              <QuantitySelector/>
+              <QuantitySelector quantity={quantity} handleMinus={handleQuantityMinus} handlePlus={handleQuantityPlugs}/>
               {
                 renderAddCartBtn()
               }

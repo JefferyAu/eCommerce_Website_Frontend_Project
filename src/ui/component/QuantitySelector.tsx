@@ -2,16 +2,18 @@ import {Box, IconButton, Stack} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-// type Props ={
-//   quantity:number,
-//   handleMinus: () => void,
-//   handlePlus: () => void,
-// }
+type Props ={
+  quantity:number,
+  handleMinus: () => void,
+  handlePlus: () => void,
+}
 
-export default function QuantitySelector(){
+export default function QuantitySelector({quantity,handleMinus,handlePlus}:Props){
   return(
     <Stack direction="row" alignItems="">
-      <IconButton>
+      <IconButton
+        onClick={handleMinus}
+      >
         <RemoveIcon/>
       </IconButton>
       <Box
@@ -21,9 +23,11 @@ export default function QuantitySelector(){
       minWidth={32}
       minHeight={32}
       >
-        1
+        {quantity}
       </Box>
-      <IconButton aria-label="delete">
+      <IconButton
+        onClick={handlePlus}
+      >
         <AddIcon />
       </IconButton>
     </Stack>

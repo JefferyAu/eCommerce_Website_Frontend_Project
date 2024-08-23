@@ -1,9 +1,9 @@
 import Header from "../../component/Header";
-import {Alert, Box, Button, Container, TextField} from "@mui/material";
+import {Alert, Box, Button, Container, Divider, TextField} from "@mui/material";
 import {useState} from "react";
 import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts"
 import {useNavigate} from "react-router-dom";
-import GoogleIcon from '@mui/icons-material/Google';
+import {GoogleLoginButton} from "react-social-login-buttons";
 
 export default function LoginPage(){
   const [email,setEmail] = useState<string>("");
@@ -30,13 +30,10 @@ export default function LoginPage(){
     }
   }
 
-  const handleSignInWithGoogle = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
+  const handleSignInWithGoogle = async () => {
     const loginResult = await FirebaseAuthService.handleSignInWithGoogle();
     if(loginResult){
       navigate(-1);
-    }else {
-      setIsLoginFailed(true);
     }
   }
 
@@ -72,14 +69,11 @@ export default function LoginPage(){
           >
             Login
           </Button>
-          <Button sx={{
-            mt:2
-          }}
-            variant="contained"
-            onClick={handleSignInWithGoogle}
-          >
-          <GoogleIcon/>
-          </Button>
+          <Divider sx={{
+            my:3
+          }}/>
+          <GoogleLoginButton
+            onClick={handleSignInWithGoogle} />
         </Box>
       </Container>
     </>
