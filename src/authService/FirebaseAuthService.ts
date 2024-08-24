@@ -72,19 +72,27 @@ export const getAccessToken = (): Promise<string> | null => {
   return currentUser.getIdToken(false);
 }
 
-export const getAuthConfig = async () => {
-  const accessToken = await getAccessToken();
-
-  if (!accessToken) {
-    throw new Error();
-  }
-
+export const getAuthConfig = async () =>{
   return {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${await getAccessToken()}`
     }
   }
 }
+
+// export const getAuthConfig = async () => {
+//   const accessToken = await getAccessToken();
+//
+//   if (!accessToken) {
+//     throw new Error();
+//   }
+//
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//     }
+//   }
+// }
 
 export const handleSignOut = async () => {
   const auth = getAuth();

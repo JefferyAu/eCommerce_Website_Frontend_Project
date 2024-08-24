@@ -4,7 +4,8 @@ import {ProductDetailDto} from "../../../../data/product/ProductDto.type.ts";
 import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../../context/LoginUserContext.ts";
 import {useNavigate} from "react-router-dom";
-
+import * as CartItemApi from "../../../../api/CartItemApi.ts";
+import AddToCartSuccessSnackBar from "./AddToCartSuccessSnackBar.tsx";
 
 type Props = {
   productDetailDto: ProductDetailDto
@@ -14,7 +15,9 @@ type Props = {
 export default function ProductDetailContainer({productDetailDto}:Props){
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
-  const [quantity,setQuantity] = useState<number>(1)
+  const [quantity,setQuantity] = useState<number>(1);
+  const [isAddingToCart,setIsAddingToCart] = useState<boolean>(false);
+  const [snackbarOpen,setSnackbarOpen] = useState<boolean>(false);
 
   const handleQuantityMinus = () => {
     if(quantity > 1){
@@ -32,6 +35,21 @@ export default function ProductDetailContainer({productDetailDto}:Props){
      }
   }
 
+  const handleAddToCart = async () =>{
+    try{
+      setIsAddingToCart(true);
+      await CartItemApi.putCartItem(productDetailDto.pid,quantity)
+      setSnackbarOpen(true);
+      setIsAddingToCart(false);
+    }catch (err){
+      console.log(err)
+    }
+  }
+
+  const handleSnackbarClose = () =>{
+    setSnackbarOpen(false)
+  }
+
   const renderAddCartBtn = () =>{
     if(loginUser === null){
       return(
@@ -45,11 +63,29 @@ export default function ProductDetailContainer({productDetailDto}:Props){
         </Button>
       )
     }else {
-      return <Button color="success"> Add to cart </Button>
+      return <Button color="success"
+      onClick={handleAddToCart}
+      disabled={isAddingToCart}> Add to cart </Button>
+    }
+  }
+
+  const renderAddToCartContainer = () =>{
+    if(productDetailDto.stock > 0){
+      return(
+        <Stack direction="row">
+          <QuantitySelector quantity={quantity} handleMinus={handleQuantityMinus} handlePlus={handleQuantityPlugs}/>
+          {
+            renderAddCartBtn()
+          }
+        </Stack>
+      )
+    }else {
+      return <Typography variant="body1" color="red">Sold Out</Typography>
     }
   }
 
   return(
+    <>
     <Paper sx={{
       mt:3
     }}>
@@ -75,14 +111,13 @@ export default function ProductDetailContainer({productDetailDto}:Props){
             <Typography variant="h6">
               Price: {productDetailDto.price.toLocaleString()}
             </Typography>
-            <Stack direction="row">
-              <QuantitySelector quantity={quantity} handleMinus={handleQuantityMinus} handlePlus={handleQuantityPlugs}/>
-              {
-                renderAddCartBtn()
-              }
-            </Stack>
+            {
+              renderAddToCartContainer()
+            }
           </Box>
         </Stack>
     </Paper>
+    <AddToCartSuccessSnackBar open={snackbarOpen} handleClose={handleSnackbarClose}/>
+    </>
   )
 }

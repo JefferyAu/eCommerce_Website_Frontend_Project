@@ -3,6 +3,7 @@ import ProductListingPage from "../../ui/page/ProductListingPage";
 import ProductDetail from "../../ui/page/ProductDetailPage";
 import ErrorPage from "../../ui/page/ErrorPage";
 import LoginPage from "../../ui/page/LoginPage";
+import ShoppingCartPage from "../../ui/page/ShoppingCartPage";
 
 
 
@@ -16,10 +17,10 @@ export const router = createBrowserRouter([
     path: "/product/:productId",
     element: <ProductDetail/>
   },
-  // {
-  //   path: "/shoppingcart",
-  //   element: <ShoppingCart/>
-  // },
+  {
+    path: "/shoppingcart",
+    element: <ShoppingCartPage/>
+  },
   {
     path: "/login",
     element: <LoginPage/>

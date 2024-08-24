@@ -4,6 +4,7 @@ import {useState} from "react";
 import {CartItemDto} from "../../data/CartItem/CartItem.type.ts";
 import LoadingContainer from "./LoadingContainer.tsx";
 import * as CartItemApi from "../../api/CartItemApi.ts"
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   open:boolean,
@@ -12,14 +13,13 @@ type Props = {
 
 export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
   const [cartItemDtoList,setCartItemDtoList] = useState<CartItemDto[]|undefined>(undefined);
+  const navigate = useNavigate();
 
   const getUserCart = async () => {
-    try{
+    // setCartItemDtoList(undefined);
     const responseDataList = await CartItemApi.getUserCart();
     setCartItemDtoList(responseDataList);
-    }catch (err){
-      console.log(err)
-    }
+
   }
 
   const renderDrawerItem = () =>{
@@ -49,7 +49,9 @@ export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
 
   return(
   <Drawer anchor="right" open={open} onClose={closeDrawer} onTransitionEnd={getUserCart}>
-    <Button>購物車</Button>
+    <Button
+    onClick={()=>{navigate('/shoppingcart')}}
+    >購物車</Button>
     <Divider sx={{my:2}}></Divider>
     <Container>
     {
