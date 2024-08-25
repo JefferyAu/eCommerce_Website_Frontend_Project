@@ -19,7 +19,7 @@ export default function Header(){
     if(loginUser){
       return(
         <>
-        <Typography variant="body1">{loginUser.email}</Typography>
+        {/*<Typography variant="body1">{loginUser.email}</Typography>*/}
         <IconButton
         onClick={()=>{
           setDrawerOpen(true);
@@ -28,13 +28,15 @@ export default function Header(){
           <ShoppingCartIcon/>
         </IconButton>
         <Button
-          color="error"
+          color="inherit"
           variant="contained"
           onClick={()=>{
             FirebaseAuthService.handleSignOut()
           }}
         >
-          Logout
+          <Typography variant="body1" sx={{color:"black"}}>
+            Sign Out
+          </Typography>
         </Button>
         </>
         )
@@ -45,7 +47,7 @@ export default function Header(){
         navigate('/login')
       }}>
         <Typography variant="body1" sx={{color:"black"}}>
-          Sign in
+          Sign In
         </Typography>
       </Button>
     }else {

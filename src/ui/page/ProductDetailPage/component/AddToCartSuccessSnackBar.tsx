@@ -8,7 +8,11 @@ type Props ={
 export default function AddToCartSuccessSnackBar({open,handleClose}:Props){
   return(
     <Snackbar
-      sx={{marginTop:"64px"}}
+      sx={{
+        marginTop:"64px",
+        backgroundColor:"#e6ae22",
+        borderRadius: "10px"
+    }}
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
@@ -18,7 +22,11 @@ export default function AddToCartSuccessSnackBar({open,handleClose}:Props){
         onClose={handleClose}
         severity="success"
         variant="filled"
-        sx={{ width: '100%' }}
+        sx={{
+          width: '100%' ,
+          backgroundColor:"#e6ae22"
+
+      }}
       >
         Item added to cart
       </Alert>

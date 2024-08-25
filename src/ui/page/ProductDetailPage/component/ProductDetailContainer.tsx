@@ -6,6 +6,7 @@ import {LoginUserContext} from "../../../../context/LoginUserContext.ts";
 import {useNavigate} from "react-router-dom";
 import * as CartItemApi from "../../../../api/CartItemApi.ts";
 import AddToCartSuccessSnackBar from "./AddToCartSuccessSnackBar.tsx";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 type Props = {
   productDetailDto: ProductDetailDto
@@ -18,6 +19,15 @@ export default function ProductDetailContainer({productDetailDto}:Props){
   const [quantity,setQuantity] = useState<number>(1);
   const [isAddingToCart,setIsAddingToCart] = useState<boolean>(false);
   const [snackbarOpen,setSnackbarOpen] = useState<boolean>(false);
+
+  const blackTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#000000', // 黑色主色調
+      },
+    },
+  });
 
   const handleQuantityMinus = () => {
     if(quantity > 1){
@@ -53,41 +63,65 @@ export default function ProductDetailContainer({productDetailDto}:Props){
   const renderAddCartBtn = () =>{
     if(loginUser === null){
       return(
+        <>
+        <ThemeProvider theme={blackTheme}>
         <Button
-          color="success"
+          variant="contained"
           onClick={()=>{
             navigate('/login')
           }}
         >
           Add to cart
         </Button>
+        </ThemeProvider>
+      </>
       )
     }else {
-      return <Button color="success"
-      onClick={handleAddToCart}
-      disabled={isAddingToCart}> Add to cart </Button>
+      return (
+        <>
+        <ThemeProvider theme={blackTheme}>
+          <Button
+                  variant="contained"
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart}
+                  sx={{
+                    backgroundColor: 'primary.main',
+                    color: 'common.white',
+                    '&:disabled': {
+                      backgroundColor: 'grey.500',
+                      color: 'grey.300',
+                    },
+                  }}
+          > Add to cart </Button>
+        </ThemeProvider>
+        </>
+      )
     }
   }
 
   const renderAddToCartContainer = () =>{
     if(productDetailDto.stock > 0){
       return(
-        <Stack direction="row">
-          <QuantitySelector quantity={quantity} handleMinus={handleQuantityMinus} handlePlus={handleQuantityPlugs}/>
+        <Stack direction="column" style={{
+          display:"block"
+        }}>
+          <QuantitySelector
+            quantity={quantity} handleMinus={handleQuantityMinus} handlePlus={handleQuantityPlugs}/>
           {
             renderAddCartBtn()
           }
         </Stack>
       )
     }else {
-      return <Typography variant="body1" color="red">Sold Out</Typography>
+      return <Typography variant="body1" color="#e6ae22">Sold Out</Typography>
     }
   }
 
   return(
     <>
     <Paper sx={{
-      mt:3
+      mt:3,
+      backgroundColor:"#EEEEEE"
     }}>
         <Stack
           direction={{
@@ -97,23 +131,32 @@ export default function ProductDetailContainer({productDetailDto}:Props){
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-evenly"
           alignItems="center"
+          sx={{
+            mb:3
+          }}
         >
           <Box>
             <img src={productDetailDto.imageUrl}/>
           </Box>
-          <Box>
-            <Typography variant="h5">
+          <Box sx={{
+            mr: 10,
+            ml: 10
+          }}>
+            <Typography variant="h6">
               {productDetailDto.name}
             </Typography>
-            <Typography variant="h6">
+            <Typography variant="h6" style={{
+              color: "#e6ae22"
+            }}>
+              ${productDetailDto.price.toLocaleString()}
+            </Typography> <br/>
+            <Typography variant="body1">
               {productDetailDto.description}
-            </Typography>
-            <Typography variant="h6">
-              Price: {productDetailDto.price.toLocaleString()}
-            </Typography>
+            </Typography> <br/>
             {
               renderAddToCartContainer()
             }
+
           </Box>
         </Stack>
     </Paper>

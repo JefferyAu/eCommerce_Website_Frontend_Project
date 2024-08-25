@@ -6,6 +6,8 @@ import {Container} from "@mui/material";
 import ProductListContainer from "./component/ProductListContainer.tsx";
 import LoadingContainer from "../../component/LoadingContainer.tsx";
 import {useNavigate} from "react-router-dom";
+import CarouselBanner from "../../component/CarouselBanner";
+import SearchSection from "./component/SearchSection.tsx";
 
 export default function ProductListingPage(){
 
@@ -31,6 +33,10 @@ export default function ProductListingPage(){
   return(
     <>
       <Header/>
+      <CarouselBanner/>
+      <Container>
+      <SearchSection/>
+      </Container>
       <Container>
         {
           getProductDtoList ?

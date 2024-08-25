@@ -9,7 +9,6 @@ type Props ={
 export default function ProductListContainer({getProductDtoList}:Props){
   return(
     <>
-      <h1> All Product</h1>
       <Grid container spacing={2}>
         {
           getProductDtoList.map((value) => (

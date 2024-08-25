@@ -9,7 +9,9 @@ export default function LoadingContainer(){
       alignItems="center"
       height="50vh"
     >
-      <CircularProgress />
+      <CircularProgress sx={{
+        color:"#e6ae22"
+      }}/>
     </Box>
   )
 }
