@@ -6,13 +6,15 @@ type Props ={
   quantity:number,
   handleMinus: () => void,
   handlePlus: () => void,
+  isLoading?: boolean
 }
 
-export default function QuantitySelector({quantity,handleMinus,handlePlus}:Props){
+export default function QuantitySelector({quantity,handleMinus,handlePlus, isLoading = false}:Props){
   return(
     <Stack direction="row" alignItems="">
       <IconButton
         onClick={handleMinus}
+        disabled={isLoading}
       >
         <RemoveIcon/>
       </IconButton>
@@ -27,6 +29,7 @@ export default function QuantitySelector({quantity,handleMinus,handlePlus}:Props
       </Box>
       <IconButton
         onClick={handlePlus}
+        disabled={isLoading}
       >
         <AddIcon />
       </IconButton>

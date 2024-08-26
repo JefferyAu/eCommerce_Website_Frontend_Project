@@ -17,10 +17,9 @@ export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
   const navigate = useNavigate();
 
   const getUserCart = async () => {
-    // setCartItemDtoList(undefined);
+    setCartItemDtoList(()=>undefined);
     const responseDataList = await CartItemApi.getUserCart();
     setCartItemDtoList(responseDataList);
-
   }
 
   const blackTheme = createTheme({
@@ -95,12 +94,13 @@ export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
 
   return(
 
-  <Drawer anchor="right" open={open} onClose={closeDrawer} onTransitionEnd={getUserCart} >
+  <Drawer anchor="right" open={open} onClose={closeDrawer} onTransitionEnter={getUserCart}>
     <ThemeProvider theme={blackTheme}>
       <Container
       sx={{
         display:"flex",
-        justifyContent:"flex-end"
+        justifyContent:"flex-end",
+        width:"300px"
       }}
       >
     <Box

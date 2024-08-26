@@ -29,13 +29,32 @@ export default function ShoppingCartPage(){
     }
   }
 
+  const changeQuantity = (pid:number,quantity:number) => {
+    const updatedDtoList = cartItemDtoList?.map((value)=>{
+       if(value.pid === pid){
+         value.cartQuantity = quantity;
+       }
+       return value;
+    })
+    setCartItemDtoList(updatedDtoList);
+  }
 
+  const deleteCartItem = (pid:number) =>{
+    const updateDtoList = cartItemDtoList?.filter((value)=>(
+      value.pid !== pid
+    ));
+    setCartItemDtoList(updateDtoList);
+  }
 
   const renderCartContainer = () => {
-    if(cartItemDtoList){
+    if(cartItemDtoList && cartItemDtoList.length > 0){
       return(
         <>
-          <ShoppingCartTable carItemDtoList={cartItemDtoList}/>
+          <ShoppingCartTable
+            changeQuantity={changeQuantity}
+            carItemDtoList={cartItemDtoList}
+            deleteCartItem={deleteCartItem}
+          />
           <Stack direction="row" justifyContent="space-between" sx={{my:2}}>
             <Typography variant="h5">
               Total: $
@@ -49,7 +68,12 @@ export default function ShoppingCartPage(){
           </Stack>
         </>
       )
-    }else {
+    }else if(cartItemDtoList && cartItemDtoList.length === 0){
+      return (
+        <Typography variant="h1">No products in the cart.</Typography>
+      )
+    }
+    else {
       <LoadingContainer/>
     }
   }

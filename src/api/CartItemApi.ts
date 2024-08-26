@@ -20,3 +20,19 @@ export const putCartItem = async (pid:number,quantity:number) =>{
    await FirebaseAuthService.getAuthConfig()
   )
 }
+
+export const patchCartQuantity =  async (pid:number,quantity:number) =>{
+  const response = await axios.patch<CartItemDto>(
+    `${baseUrl}/cart/${pid}/${quantity}`,
+    null,
+    await FirebaseAuthService.getAuthConfig()
+  )
+  return response.data;
+}
+
+export const deleteCartItem = async (pid:number) =>{
+  await axios.delete(
+    `${baseUrl}/cart/${pid}`,
+    await FirebaseAuthService.getAuthConfig()
+  )
+}
