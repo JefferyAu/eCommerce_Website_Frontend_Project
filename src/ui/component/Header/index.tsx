@@ -2,9 +2,9 @@ import {AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography} 
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
-import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartDrawer from "../ShoppingCartDrawer.tsx";
+import SignOutButton from "./SignOutButton.tsx";
 
 export default function Header(){
   const [drawerOpen,setDrawerOpen] = useState<boolean>(false);
@@ -27,21 +27,13 @@ export default function Header(){
         >
           <ShoppingCartIcon/>
         </IconButton>
-        <Button
-          color="inherit"
-          variant="contained"
-          onClick={()=>{
-            FirebaseAuthService.handleSignOut()
-          }}
-        >
-          <Typography variant="body1" sx={{color:"black"}}>
-            Sign Out
-          </Typography>
-        </Button>
+        <SignOutButton/>
         </>
         )
     }else if(loginUser === null){
-      return <Button
+      return (
+        <>
+        <Button
         color="inherit"
         onClick={()=>{
         navigate('/login')
@@ -50,6 +42,8 @@ export default function Header(){
           Sign In
         </Typography>
       </Button>
+        </>
+    )
     }else {
       return(
         <CircularProgress color="inherit" />

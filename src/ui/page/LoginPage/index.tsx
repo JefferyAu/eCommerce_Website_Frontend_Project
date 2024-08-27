@@ -1,5 +1,5 @@
 import Header from "../../component/Header";
-import {Alert, Box, Button, CircularProgress, Container, Divider, TextField} from "@mui/material";
+import {Alert, Box, Button, Chip, CircularProgress, Container, Divider, TextField, Typography} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts"
 import {useNavigate} from "react-router-dom";
@@ -81,12 +81,24 @@ export default function LoginPage(){
   return(
     <>
     <Header/>
-      <Container>
-        <Box component="form" onSubmit={handleSignInWithEmailAndPassword}>
+      <Container sx={{
+        mt:20,
+        mb:20
+      }}>
+
+        <Box component="form" onSubmit={handleSignInWithEmailAndPassword}
+        >
           {
             isLoginFailed &&
               <Alert severity="error" sx={{my: 2}}>Login Failed, please try again</Alert>
           }
+          <Typography variant="h4"
+          sx={{
+            display:"grid",
+            justifyContent:"center"
+          }}
+          >Sign In
+          </Typography>
           <TextField
            type="email"
            label="Email"
@@ -102,11 +114,19 @@ export default function LoginPage(){
             margin={"normal"}
             value={password}
             onChange={handlePasswordChange}
+            sx={{
+              mb:3
+            }}
           />
           {renderLoginButton()}
-          <Divider sx={{
-            my:3
-          }}/>
+          <Divider
+            sx={{
+              my:4,
+              mb:4
+            }}
+          >
+            <Chip label="OR" size="small" />
+          </Divider>
           <GoogleLoginButton
             onClick={handleSignInWithGoogle} />
         </Box>

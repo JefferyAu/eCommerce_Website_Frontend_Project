@@ -9,9 +9,10 @@ type Props = {
 export default function Items({carouselDto}:Props){
   return(
     <>
-      <Paper sx={{
+      <Paper elevation={0} sx={{
         mr: { xs: 0, md: 0, lg: 0, xl: 15 },
         ml: { xs: 0, md: 0, lg: 0, xl: 15 },
+
       }}>
         <img src={carouselDto.imageUrl}
              style={{
