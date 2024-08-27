@@ -5,6 +5,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.ts";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Logout from "@mui/icons-material/Logout";
 
 export default function SignOutButton() {
   const [open, setOpen] = React.useState(false);
@@ -19,9 +22,15 @@ export default function SignOutButton() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/*<Button variant="outlined" onClick={handleClickOpen}>*/}
+      {/*  Sign Out*/}
+      {/*</Button>*/}
+      <MenuItem onClick={handleClickOpen}>
+        <ListItemIcon>
+          <Logout fontSize="small" />
+        </ListItemIcon>
         Sign Out
-      </Button>
+      </MenuItem>
       <Dialog
         open={open}
         onClose={handleClose}

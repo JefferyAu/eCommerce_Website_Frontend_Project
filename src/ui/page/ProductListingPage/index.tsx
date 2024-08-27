@@ -8,10 +8,21 @@ import LoadingContainer from "../../component/LoadingContainer.tsx";
 import {useNavigate} from "react-router-dom";
 import CarouselBanner from "../../component/CarouselBanner";
 import SearchSection from "./component/SearchSection.tsx";
+import CategoryFilter from "./component/CategoryFilter.tsx";
 
 export default function ProductListingPage(){
 
   const [getProductDtoList, setProductDtoList] = useState<ProductDto[] | undefined>(undefined);
+  const [productNameFilter,setProductNameFilter] = useState<string>("");
+  const [categoryFilter,setCategoryFilter] = useState<string>("");
+
+  const handleProductNameFilterChange = (productNameFilter:string) =>{
+    setProductNameFilter(productNameFilter)
+  }
+
+  const handleCategoryFilterChange = (categoryFilter:string) =>{
+    setCategoryFilter(categoryFilter)
+  }
 
   const navigate = useNavigate();
 
@@ -35,12 +46,24 @@ export default function ProductListingPage(){
       <Header/>
       <CarouselBanner/>
       <Container>
-      <SearchSection/>
+      <SearchSection
+      productNameFilter={productNameFilter}
+      handleProductNameFilterChange={handleProductNameFilterChange}
+      />
+      </Container>
+      <Container>
+        <CategoryFilter
+        categoryFilter={categoryFilter}
+        handleCategoryFilterChange={handleCategoryFilterChange}
+        />
       </Container>
       <Container>
         {
           getProductDtoList ?
-            <ProductListContainer getProductDtoList={getProductDtoList}/>
+            <ProductListContainer
+              productNameFilter={productNameFilter}
+              categoryFilter={categoryFilter}
+              getProductDtoList={getProductDtoList}/>
             :<LoadingContainer/>
         }
       </Container>

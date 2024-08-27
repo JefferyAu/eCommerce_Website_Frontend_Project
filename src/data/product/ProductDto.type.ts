@@ -3,6 +3,7 @@ export interface ProductDto {
   name:        string;
   description: string;
   imageUrl:    string;
+  category:    string;
   price:       number;
   hasStock:    boolean;
 }
@@ -12,6 +13,7 @@ export interface ProductDetailDto {
   name:        string;
   description: string;
   imageUrl:    string;
+  category:    string;
   price:       number;
   stock:       number;
 }

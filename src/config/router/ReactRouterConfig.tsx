@@ -4,6 +4,7 @@ import ProductDetail from "../../ui/page/ProductDetailPage";
 import ErrorPage from "../../ui/page/ErrorPage";
 import LoginPage from "../../ui/page/LoginPage";
 import ShoppingCartPage from "../../ui/page/ShoppingCartPage";
+import AdminConsolePage from "../../ui/page/AdminConsolePage";
 
 
 
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
   //   path: "/thankyou",
   //   element: <ThankYou/>
   // },
+  {
+    path: "/adminconsole",
+    element: <AdminConsolePage/>
+  },
   {
     path: "/error",
     element: <ErrorPage/>

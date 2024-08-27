@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartDrawer from "../ShoppingCartDrawer.tsx";
-import SignOutButton from "./SignOutButton.tsx";
+import AccountMenu from "./AccountMenu.tsx";
 
 export default function Header(){
   const [drawerOpen,setDrawerOpen] = useState<boolean>(false);
@@ -27,7 +27,7 @@ export default function Header(){
         >
           <ShoppingCartIcon/>
         </IconButton>
-        <SignOutButton/>
+          <AccountMenu/>
         </>
         )
     }else if(loginUser === null){

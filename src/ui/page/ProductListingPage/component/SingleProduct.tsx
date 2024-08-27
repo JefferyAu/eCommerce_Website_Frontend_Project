@@ -3,12 +3,11 @@ import {ProductDto} from "../../../../data/product/ProductDto.type.ts";
 import {useNavigate} from "react-router-dom";
 
 type Props = {
-  getProductDto:ProductDto
+  getProductDto:ProductDto,
 }
 
 
-
-export default function SingleFurniture({getProductDto}:Props){
+export default function SingleProduct({getProductDto}:Props){
   const navigate = useNavigate();
 
   return(
@@ -45,6 +44,11 @@ export default function SingleFurniture({getProductDto}:Props){
               color="black">
               ${getProductDto.price.toLocaleString()}
             </Typography>
+            {/*<Typography*/}
+            {/*  variant="body2"*/}
+            {/*  color="black">*/}
+            {/*  Category:{getProductDto.category}*/}
+            {/*</Typography>*/}
           </CardContent>
         </CardActionArea>
       </Card>
