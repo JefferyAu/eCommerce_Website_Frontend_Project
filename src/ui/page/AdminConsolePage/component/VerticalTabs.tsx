@@ -3,7 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import AllProductList from "./AllProductList.tsx";
+import ProductTable from "./ProductTable.tsx";
+import {ProductDetailDto, ProductDto} from "../../../../data/product/ProductDto.type.ts";
+import AddProductTable from "./AddProductTable.tsx";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -38,7 +40,21 @@ function a11yProps(index: number) {
   };
 }
 
-export default function VerticalTabs() {
+type Props = {
+  getProductDtoList: ProductDto[]
+  addProductDto:ProductDetailDto
+  handleAddProductDtoChange:(addProductDto:ProductDetailDto)=>void
+  deleteProductDtoDetail:(pid:number)=>void
+  addProductDtoDetail:(addProductDto:ProductDetailDto)=>void
+}
+
+export default function VerticalTabs({
+                                       getProductDtoList,
+                                       addProductDto,
+                                       handleAddProductDtoChange,
+                                       deleteProductDtoDetail,
+                                       addProductDtoDetail}:Props) {
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -64,7 +80,7 @@ export default function VerticalTabs() {
         }}
       >
         <Tab label="All Product" {...a11yProps(0)} />
-        <Tab label="Upload Product" {...a11yProps(1)} />
+        <Tab label="Add Product" {...a11yProps(1)} />
         <Tab label="Report" {...a11yProps(2)} />
         {/*<Tab label="Item Four" {...a11yProps(3)} />*/}
         {/*<Tab label="Item Five" {...a11yProps(4)} />*/}
@@ -72,10 +88,21 @@ export default function VerticalTabs() {
         {/*<Tab label="Item Seven" {...a11yProps(6)} />*/}
       </Tabs>
       <TabPanel value={value} index={0}>
-        <AllProductList/>
+        {
+          getProductDtoList &&
+            <ProductTable
+                getProductDtoList={getProductDtoList}
+                deleteProductDtoDetail={deleteProductDtoDetail}
+            />
+        }
+
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <AddProductTable
+          addProductDto={addProductDto}
+          handleAddProductDtoChange={handleAddProductDtoChange}
+          addProductDtoDetail={addProductDtoDetail}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
