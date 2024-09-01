@@ -10,12 +10,10 @@ import { ChangeEvent } from 'react';
 type Props = {
   addProductDto:ProductDetailDto,
   handleAddProductDtoChange:(addProductDto:ProductDetailDto)=>void
-  addProductDtoDetail:(addProductDto:ProductDetailDto)=>void
 }
 
 export default function AddProductTable({addProductDto,
                                           handleAddProductDtoChange,
-                                          addProductDtoDetail
                                           }:Props){
 
   const navigate = useNavigate();
@@ -40,7 +38,6 @@ export default function AddProductTable({addProductDto,
     event.preventDefault();
     try {
       await ProductDtoApi.addProductDtoDetail(addProductDto);
-      addProductDtoDetail(addProductDto);
       setSnackbarOpen(true);
     }catch (err){
       console.log(err);
@@ -91,10 +88,6 @@ export default function AddProductTable({addProductDto,
         value={addProductDto.stock}
         onChange={handleAddProductDtoFormChange}
         />
-        {/*<TextField id="outlined-basic" name="category" label="Category" variant="outlined"*/}
-        {/*value={addProductDto.category}*/}
-        {/*onChange={handleAddProductDtoFormChange}*/}
-        {/*/>*/}
         <FormControl sx={{
           width:"208px",
           mb:3

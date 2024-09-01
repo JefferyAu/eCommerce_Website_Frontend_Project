@@ -44,9 +44,10 @@ export default function SearchSection({
       {/*</Box>*/}
       <Box
        sx={{
-         flexGrow: 1,
-         mt: 6,
-         mb:6
+         // flexGrow: 1,
+         // mr:2,
+         // mt:4,
+         // mb:4
        }}
       >
       <TextField

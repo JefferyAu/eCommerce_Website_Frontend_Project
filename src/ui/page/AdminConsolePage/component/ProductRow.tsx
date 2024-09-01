@@ -19,9 +19,20 @@ export default function ProductRow({getProductDto,deleteProductDtoDetail}:Props)
     setIsDeleting(false);
   }
 
+  const baseUrl = "http://localhost:5173"
+
+  const handleNewProductClick = () => {
+    window.open(`${baseUrl}/product/${getProductDto.pid}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleUpdateProductClick = () =>{
+    window.open(`${baseUrl}/adminconsole/${getProductDto.pid}`, 'noopener,noreferrer');
+  }
+
   const buttons = [
-    <Button key="one">View</Button>,
-    <Button key="two" onClick={handleProductDtoDetail} disabled={isDeleting}>Delete</Button>,
+    <Button key="one" onClick={handleNewProductClick}>View</Button>,
+    <Button key="two" onClick={handleUpdateProductClick}>Edit</Button>,
+    <Button key="three" onClick={handleProductDtoDetail} disabled={isDeleting}>Delete</Button>,
   ];
 
   return(
@@ -30,13 +41,13 @@ export default function ProductRow({getProductDto,deleteProductDtoDetail}:Props)
         <TableCell component="th" scope="row">
           {getProductDto.pid}
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           {getProductDto.name}
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           {getProductDto.category}
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           <Box
             sx={{
               width: "100px",
@@ -49,13 +60,13 @@ export default function ProductRow({getProductDto,deleteProductDtoDetail}:Props)
           >
           </Box>
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           ${getProductDto.price.toLocaleString()}
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           {getProductDto.hasStock? "有貨":"售罄"}
         </TableCell>
-        <TableCell align="right">
+        <TableCell >
           <Box
             sx={{
               display: 'flex',
@@ -67,7 +78,6 @@ export default function ProductRow({getProductDto,deleteProductDtoDetail}:Props)
             <ButtonGroup
               orientation="vertical"
               aria-label="Vertical button group"
-              variant="contained"
             >
               {buttons}
             </ButtonGroup>

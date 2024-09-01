@@ -1,15 +1,17 @@
-import {AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Badge, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartDrawer from "../ShoppingCartDrawer.tsx";
 import AccountMenu from "./AccountMenu.tsx";
+import PopoverButton from "./PopoverButton.tsx";
 
 export default function Header(){
   const [drawerOpen,setDrawerOpen] = useState<boolean>(false);
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
+
 
   const closeDrawer = () =>{
     setDrawerOpen(false);
@@ -25,7 +27,11 @@ export default function Header(){
           setDrawerOpen(true);
         }}
         >
-          <ShoppingCartIcon/>
+
+          <Badge badgeContent={4} color="primary">
+            <ShoppingCartIcon/>
+          </Badge>
+
         </IconButton>
           <AccountMenu/>
         </>
@@ -58,6 +64,7 @@ export default function Header(){
         backgroundColor: "white"
       }}>
         <Toolbar >
+          <PopoverButton/>
           <Typography variant="h6" component="div" sx={{
             flexGrow: 1 ,
             display: "flex",

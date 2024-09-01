@@ -40,7 +40,7 @@ export default function ProductDetailPage(){
       <Container>
         {
           productDetailDto ?
-            <ProductDetailContainer productDetailDto={productDetailDto}/>
+            <ProductDetailContainer key={productDetailDto.pid} productDetailDto={productDetailDto}/>
             : <LoadingContainer/>
         }
       </Container>

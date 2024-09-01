@@ -45,13 +45,16 @@ export default function ProductListingPage(){
     <>
       <Header/>
       <CarouselBanner/>
-      <Container>
+      <Container sx={{
+        display:"flex",
+        justifyContent:"space-between",
+        mt:2,
+        mb:2
+      }}>
       <SearchSection
       productNameFilter={productNameFilter}
       handleProductNameFilterChange={handleProductNameFilterChange}
       />
-      </Container>
-      <Container>
         <CategoryFilter
         categoryFilter={categoryFilter}
         handleCategoryFilterChange={handleCategoryFilterChange}

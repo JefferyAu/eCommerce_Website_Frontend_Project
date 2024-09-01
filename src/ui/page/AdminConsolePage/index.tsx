@@ -23,6 +23,10 @@ export default function AdminConsolePage(){
     setAddProductDto(addProductDto)
   }
 
+  const handleRefreshGetAllApi = (getProductDtoList:ProductDto[]) =>{
+    setGetProductDto(getProductDtoList)
+  }
+
   const loginUser = useContext(LoginUserContext);
 
   const navigate = useNavigate();
@@ -44,28 +48,6 @@ export default function AdminConsolePage(){
     setGetProductDto(updateDtoList);
   }
 
-  // const changeQuantity = (pid:number,quantity:number) => {
-  //   const updatedDtoList = cartItemDtoList?.map((value)=>{
-  //     if(value.pid === pid){
-  //       value.cartQuantity = quantity;
-  //     }
-  //     return value;
-  //   })
-  //   setCartItemDtoList(updatedDtoList);
-  // }
-
-  const addProductDtoDetail = (addProductDto:ProductDetailDto) =>{
-    const updateAddDtoList = getProductDtoList?.map((value)=>{
-      if(value.pid === addProductDto.pid){
-        value.name = addProductDto.name;
-        value.category = addProductDto.category;
-        value.imageUrl = addProductDto.imageUrl;
-        value.price = addProductDto.price;
-      }
-      return value;
-    })
-    setGetProductDto(updateAddDtoList)
-  }
 
   useEffect(
     ()=>{
@@ -85,8 +67,9 @@ export default function AdminConsolePage(){
               addProductDto={addProductDto}
               handleAddProductDtoChange={handleAddProductDtoChange}
               deleteProductDtoDetail={deleteProductDtoDetail}
-              addProductDtoDetail={addProductDtoDetail}
+              handleRefreshGetAllApi={handleRefreshGetAllApi}
           />
+
       }
     </>
   )

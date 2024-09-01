@@ -5,13 +5,27 @@ import {useContext, useEffect, useState} from "react";
 import {CartItemDto} from "../../../data/CartItem/CartItem.type.ts";
 import LoadingContainer from "../../component/LoadingContainer.tsx";
 import * as CartItemApi from "../../../api/CartItemApi.ts"
+import * as TransactionApi from "../../../api/TransactionApi.ts";
 import {useNavigate} from "react-router-dom";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
+import LoadingBackdrop from "../../component/LoadingBackdrop.tsx";
 
 export default function ShoppingCartPage(){
   const [cartItemDtoList, setCartItemDtoList] = useState<CartItemDto[]|undefined>(undefined);
   const navigate = useNavigate();
   const loginUser = useContext(LoginUserContext);
+  const [loadingBackdropOpen,setLoadingBackdropOpen] = useState<boolean>(false)
+
+  const prepareTransaction = async  () =>{
+    try{
+      setLoadingBackdropOpen(true);
+      const responseData = await TransactionApi.prepareTransaction();
+      navigate(`/checkout/${responseData.tid}`)
+    }catch (err){
+      console.error(err);
+      navigate(`/error`)
+    }
+  }
 
   const calTotal = (cartItemDtoList:CartItemDto[]) => {
     return cartItemDtoList.reduce((total,currentValue)=>(
@@ -62,8 +76,11 @@ export default function ShoppingCartPage(){
                 calTotal(cartItemDtoList).toLocaleString( )
              }
             </Typography>
-            <Button size="large">
-              Pay
+            <Button
+              size="large"
+            onClick={prepareTransaction}
+            >
+              Check Out
             </Button>
           </Stack>
         </>
@@ -94,6 +111,7 @@ export default function ShoppingCartPage(){
           renderCartContainer()
         }
       </Container>
+      <LoadingBackdrop open={loadingBackdropOpen}/>
     </>
   )
 }

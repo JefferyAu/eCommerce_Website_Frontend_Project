@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import ProductTable from "./ProductTable.tsx";
 import {ProductDetailDto, ProductDto} from "../../../../data/product/ProductDto.type.ts";
 import AddProductTable from "./AddProductTable.tsx";
+import * as ProductDtoApi from "../../../../api/ProductDtoApi.ts";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,7 +47,7 @@ type Props = {
   addProductDto:ProductDetailDto
   handleAddProductDtoChange:(addProductDto:ProductDetailDto)=>void
   deleteProductDtoDetail:(pid:number)=>void
-  addProductDtoDetail:(addProductDto:ProductDetailDto)=>void
+  handleRefreshGetAllApi:(getProductDtoList:ProductDto[])=>void
 }
 
 export default function VerticalTabs({
@@ -53,13 +55,21 @@ export default function VerticalTabs({
                                        addProductDto,
                                        handleAddProductDtoChange,
                                        deleteProductDtoDetail,
-                                       addProductDtoDetail}:Props) {
+                                       handleRefreshGetAllApi
+                                       }:Props) {
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const handleRefreshTab = async () =>{
+    const responseData =  await ProductDtoApi.getProductDto()
+    handleRefreshGetAllApi(responseData);
+  }
+
+
 
   return (
     <Box
@@ -79,7 +89,7 @@ export default function VerticalTabs({
           width: "200px"
         }}
       >
-        <Tab label="All Product" {...a11yProps(0)} />
+        <Tab label="All Product" onClick={handleRefreshTab} {...a11yProps(0)} />
         <Tab label="Add Product" {...a11yProps(1)} />
         <Tab label="Report" {...a11yProps(2)} />
         {/*<Tab label="Item Four" {...a11yProps(3)} />*/}
@@ -87,7 +97,7 @@ export default function VerticalTabs({
         {/*<Tab label="Item Six" {...a11yProps(5)} />*/}
         {/*<Tab label="Item Seven" {...a11yProps(6)} />*/}
       </Tabs>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} >
         {
           getProductDtoList &&
             <ProductTable
@@ -101,7 +111,6 @@ export default function VerticalTabs({
         <AddProductTable
           addProductDto={addProductDto}
           handleAddProductDtoChange={handleAddProductDtoChange}
-          addProductDtoDetail={addProductDtoDetail}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>

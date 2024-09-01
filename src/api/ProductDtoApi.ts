@@ -27,3 +27,11 @@ export const deleteProductDtoDetail= async (pid:number) =>{
     await FirebaseAuthService.getAuthConfig()
   )
 }
+
+export const updateProductDtoDetail= async (pid:number,updateProductDto:ProductDetailDto) =>{
+  await axios.put(
+    `http://localhost:8080/product/${pid}`,
+    updateProductDto,
+    await FirebaseAuthService.getAuthConfig()
+  )
+}

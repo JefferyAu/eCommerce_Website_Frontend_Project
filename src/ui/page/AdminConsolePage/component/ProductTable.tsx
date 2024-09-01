@@ -15,17 +15,17 @@ export default function ProductTable({getProductDtoList,
       <Typography variant="h5">
         Product List
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Product ID</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Category</TableCell>
-              <TableCell align="right">Image Url</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Stock</TableCell>
-              <TableCell align="right">Setting</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Image Url</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Stock</TableCell>
+              <TableCell>Setting</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

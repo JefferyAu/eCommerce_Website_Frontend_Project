@@ -8,7 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import SignOutButton from "./SignOutButton.tsx";
 import {useNavigate} from "react-router-dom";
-
+import {useContext} from "react";
+import {LoginUserContext} from "../../../context/LoginUserContext.ts";
+import EmailIcon from '@mui/icons-material/Email';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -20,7 +23,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   const navigate = useNavigate();
-
+  const loginUser = useContext(LoginUserContext)
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -75,10 +78,16 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <IconButton>
+            <EmailIcon/>
+          </IconButton>
+          {loginUser?.email}
         </MenuItem>
         <MenuItem onClick={()=>(navigate(`/adminconsole`))}>
-          <Avatar /> Admin Console
+          <IconButton>
+            <SupervisorAccountIcon/>
+          </IconButton>
+           Admin Console
         </MenuItem>
         <Divider />
         {/*<MenuItem onClick={handleClose}>*/}
