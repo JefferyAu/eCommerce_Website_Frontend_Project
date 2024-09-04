@@ -87,7 +87,7 @@ export default function ShoppingCartPage(){
       )
     }else if(cartItemDtoList && cartItemDtoList.length === 0){
       return (
-        <Typography variant="h1">No products in the cart.</Typography>
+        <Typography variant="h5">No products in the cart.</Typography>
       )
     }
     else {

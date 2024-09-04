@@ -8,6 +8,7 @@ import AdminConsolePage from "../../ui/page/AdminConsolePage";
 import CheckOutPage from "../../ui/page/CheckOutPage";
 import ThankYouPage from "../../ui/page/ThankYouPage";
 import AdminProductDetailPage from "../../ui/page/AdminProductDetailPage";
+import PermissionErrorPage from "../../ui/page/PermissionErrorPage";
 
 
 
@@ -48,5 +49,9 @@ export const router = createBrowserRouter([
   {
     path: "/error",
     element: <ErrorPage/>
+  },
+  {
+    path: "/permissionerror",
+    element: <PermissionErrorPage/>
   }
 ])

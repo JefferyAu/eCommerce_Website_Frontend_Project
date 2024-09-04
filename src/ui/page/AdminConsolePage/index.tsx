@@ -1,10 +1,11 @@
 import Header from "../../component/Header";
-import VerticalTabs from "./component/VerticalTabs.tsx";
 import {useContext, useEffect, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import {useNavigate} from "react-router-dom";
 import {ProductDetailDto, ProductDto} from "../../../data/product/ProductDto.type.ts";
 import * as ProductDtoApi from "../../../../src/api/ProductDtoApi.ts";
+import TabBar from "./component/TabBar.tsx";
+import {Container} from "@mui/material";
 
 export default function AdminConsolePage(){
 
@@ -60,9 +61,10 @@ export default function AdminConsolePage(){
   return(
     <>
       <Header/>
+      <Container sx={{mt:2}}>
       {
         getProductDtoList &&
-          <VerticalTabs
+          <TabBar
               getProductDtoList={getProductDtoList}
               addProductDto={addProductDto}
               handleAddProductDtoChange={handleAddProductDtoChange}
@@ -71,6 +73,7 @@ export default function AdminConsolePage(){
           />
 
       }
+      </Container>
     </>
   )
 }

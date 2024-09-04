@@ -41,7 +41,7 @@ export default function AddProductTable({addProductDto,
       setSnackbarOpen(true);
     }catch (err){
       console.log(err);
-      navigate(`/error`)
+      navigate(`/permissionerror`)
     }
   }
 

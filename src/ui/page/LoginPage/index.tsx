@@ -5,6 +5,8 @@ import * as FirebaseAuthService from "../../../authService/FirebaseAuthService.t
 import {useNavigate} from "react-router-dom";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import IconButton from "@mui/material/IconButton";
 
 export default function LoginPage(){
   const [email,setEmail] = useState<string>("");
@@ -54,7 +56,7 @@ export default function LoginPage(){
     if(!isLoggingIn){
       return(
         <Button
-          variant="contained"
+          variant="outlined"
           fullWidth
           type="submit"
         >
@@ -65,7 +67,7 @@ export default function LoginPage(){
       return (
         <>
         <Button
-        variant="contained"
+        variant="outlined"
         fullWidth
         type="submit"
         disabled
@@ -82,7 +84,7 @@ export default function LoginPage(){
     <>
     <Header/>
       <Container sx={{
-        mt:20,
+        mt:10,
         mb:20
       }}>
 
@@ -92,16 +94,33 @@ export default function LoginPage(){
             isLoginFailed &&
               <Alert severity="error" sx={{my: 2}}>Login Failed, please try again</Alert>
           }
-          <Typography variant="h4"
+          <Typography variant="h5"
           sx={{
             display:"grid",
-            justifyContent:"center"
+            justifyContent:"center",
+            mb:2
           }}
-          >Sign In
+          >
+            <IconButton >
+              <LockOutlinedIcon />
+            </IconButton>
+            Sign In
           </Typography>
+          <Typography variant="body2"
+                      sx={{
+                        display:"grid",
+                        justifyContent:"center",
+                        mb:2
+                      }}>
+            Welcome user, please sign in to continue
+          </Typography>
+          <Box sx={{
+            mr: { xs: 5, md: 10, lg: 15, xl: 30 },
+            ml: { xs: 5, md: 10, lg: 15, xl: 30 },
+          }}>
           <TextField
            type="email"
-           label="Email"
+           label="Email*"
            fullWidth
            margin={"normal"}
            value={email}
@@ -109,7 +128,7 @@ export default function LoginPage(){
           />
           <TextField
             type="password"
-            label="Password"
+            label="Password*"
             fullWidth
             margin={"normal"}
             value={password}
@@ -121,14 +140,15 @@ export default function LoginPage(){
           {renderLoginButton()}
           <Divider
             sx={{
-              my:4,
-              mb:4
+              my:2,
+              mb:2
             }}
           >
             <Chip label="OR" size="small" />
           </Divider>
           <GoogleLoginButton
             onClick={handleSignInWithGoogle} />
+          </Box>
         </Box>
       </Container>
     </>

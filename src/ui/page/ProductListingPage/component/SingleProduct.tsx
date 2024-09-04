@@ -1,4 +1,4 @@
-import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
+import {Badge, Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {ProductDto} from "../../../../data/product/ProductDto.type.ts";
 import {useNavigate} from "react-router-dom";
 
@@ -30,15 +30,30 @@ export default function SingleProduct({getProductDto}:Props){
           >
           </Box>
           <CardContent>
+            {
+              getProductDto.hasStock ?
+                <Typography gutterBottom
+                            variant="body1"
+                            component="div"
+                            sx={{color:"#777777"}}
+                >
+                  {getProductDto.name}
+                </Typography>
+                :
+              <Badge badgeContent="Sold Out" color="primary" >
+              <Typography gutterBottom
+              variant="body1"
+              component="div"
+              sx={{
+                color:"#777777",
+                mr:4
+              }}
+              >
+                {getProductDto.name}
+              </Typography>
+        </Badge>
+            }
 
-            <Typography gutterBottom
-             variant="body1"
-             component="div"
-              sx={{color:"#777777"}}
-            >
-              {getProductDto.name}
-
-            </Typography>
             <Typography
               variant="body2"
               color="black">

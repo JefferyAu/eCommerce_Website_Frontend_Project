@@ -50,6 +50,7 @@ export default function UpdateProductDetail({adminProductDetails}:Props){
       setSnackbarOpen(true);
     }catch (err){
       console.error(err);
+      navigate(`/permissionerror`)
     }
  }
 

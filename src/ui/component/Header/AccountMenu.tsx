@@ -8,13 +8,16 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import SignOutButton from "./SignOutButton.tsx";
 import {useNavigate} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import EmailIcon from '@mui/icons-material/Email';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import * as UserApi from "../../../api/UserApi.ts";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isAdmin,setIsAdmin] = useState<boolean>(false);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -24,6 +27,40 @@ export default function AccountMenu() {
   };
   const navigate = useNavigate();
   const loginUser = useContext(LoginUserContext)
+
+
+  const checkAdminRole = async () =>{
+    try {
+      const responseData =  await UserApi.checkAdminRole();
+      setIsAdmin(responseData.data);
+    }catch (err){
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    checkAdminRole()
+  }, []);
+
+  const renderAdminButton = () =>{
+    if(isAdmin){
+      return(
+        <>
+          <MenuItem onClick={()=>(navigate(`/adminconsole`))}>
+            <IconButton>
+              <SupervisorAccountIcon/>
+            </IconButton>
+            Admin Console
+          </MenuItem>
+        </>
+      )
+    }else {
+      return (
+        <></>
+      )
+    }
+  }
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -83,12 +120,9 @@ export default function AccountMenu() {
           </IconButton>
           {loginUser?.email}
         </MenuItem>
-        <MenuItem onClick={()=>(navigate(`/adminconsole`))}>
-          <IconButton>
-            <SupervisorAccountIcon/>
-          </IconButton>
-           Admin Console
-        </MenuItem>
+        {
+          renderAdminButton()
+        }
         <Divider />
         {/*<MenuItem onClick={handleClose}>*/}
         {/*  <ListItemIcon>*/}

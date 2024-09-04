@@ -6,6 +6,7 @@ import {ProductDetailDto} from "../../../data/product/ProductDto.type.ts";
 import * as ProductApi from "../../../api/ProductDtoApi.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import LoadingContainer from "../../component/LoadingContainer.tsx";
+import ProductDetailsTab from "./component/ProductDetailsTab.tsx";
 
 type Params = {
   productId: string
@@ -43,6 +44,9 @@ export default function ProductDetailPage(){
             <ProductDetailContainer key={productDetailDto.pid} productDetailDto={productDetailDto}/>
             : <LoadingContainer/>
         }
+      </Container>
+      <Container>
+        <ProductDetailsTab/>
       </Container>
     </>
   )

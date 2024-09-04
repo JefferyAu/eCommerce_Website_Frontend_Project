@@ -3,6 +3,9 @@ import Popover from '@mui/material/Popover';
 import Button from '@mui/material/Button';
 import {Badge, Box, Paper, Stack, Typography} from "@mui/material";
 import Divider from "@mui/material/Divider";
+import NewArrival from "../../../assets/img/NewArrival.gif";
+import Bags from "../../../assets/img/bags.jpg";
+import Chair from "../../../assets/img/Chair.jpg";
 
 export default function PopoverButton() {
 
@@ -16,13 +19,14 @@ export default function PopoverButton() {
     setAnchorEl(null);
   };
 
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
       <Button aria-describedby={id}  onClick={handleClick}>
-        <img src="/src/assets/img/NewArrival.gif" style={{
+        <img src={NewArrival} style={{
           height:"52px"
         }}/>
       </Button>
@@ -44,9 +48,10 @@ export default function PopoverButton() {
              display:"flex",
              justifyContent:"center",
              alignItems:"center"
-           }}>
+           }}
+           >
              <Badge badgeContent="New" color="primary" >
-             <img src="/src/assets/img/bags.jpg" style={{
+             <img src={Bags} style={{
                width:"80px"
              }}/>
              </Badge>
@@ -59,9 +64,10 @@ export default function PopoverButton() {
               display:"flex",
               justifyContent:"center",
               alignItems:"center"
-            }}>
+            }}
+            >
               <Badge badgeContent="New" color="primary">
-              <img src="/src/assets/img/Chair.jpg" style={{
+              <img src={Chair} style={{
                 width:"80px"
               }}/>
               </Badge>

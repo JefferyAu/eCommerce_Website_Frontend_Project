@@ -1,4 +1,4 @@
-import {AppBar, Badge, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
@@ -28,9 +28,9 @@ export default function Header(){
         }}
         >
 
-          <Badge badgeContent={4} color="primary">
+          {/*<Badge badgeContent={4} color="primary">*/}
             <ShoppingCartIcon/>
-          </Badge>
+          {/*</Badge>*/}
 
         </IconButton>
           <AccountMenu/>

@@ -2,31 +2,42 @@ import {Box, Button, ButtonGroup, TableCell, TableRow} from "@mui/material";
 import {ProductDto} from "../../../../data/product/ProductDto.type.ts";
 import * as ProductDtoApi from "../../../../api/ProductDtoApi.ts"
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+
 
 type Props = {
   getProductDto:ProductDto
   deleteProductDtoDetail:(pid:number)=>void
 }
 
+
 export default function ProductRow({getProductDto,deleteProductDtoDetail}:Props){
 
   const [isDeleting,setIsDeleting] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const handleProductDtoDetail = async () =>{
-    setIsDeleting(true);
-    await ProductDtoApi.deleteProductDtoDetail(getProductDto.pid);
-    deleteProductDtoDetail(getProductDto.pid);
-    setIsDeleting(false);
+    try {
+      setIsDeleting(true);
+      await ProductDtoApi.deleteProductDtoDetail(getProductDto.pid);
+      deleteProductDtoDetail(getProductDto.pid);
+      setIsDeleting(false);
+    }catch (err){
+      console.log(err);
+      navigate(`/permissionerror`)
+    }
   }
 
-  const baseUrl = "http://localhost:5173"
 
   const handleNewProductClick = () => {
-    window.open(`${baseUrl}/product/${getProductDto.pid}`, '_blank', 'noopener,noreferrer');
+    // window.open(`${baseUrl}/product/${getProductDto.pid}`, '_blank', 'noopener,noreferrer');
+    return window.location.href = `https://shop.betasolution.online/product/${getProductDto.pid}`;
   };
 
   const handleUpdateProductClick = () =>{
-    window.open(`${baseUrl}/adminconsole/${getProductDto.pid}`, 'noopener,noreferrer');
+    // window.open(`${baseUrl}/adminconsole/${getProductDto.pid}`, 'noopener,noreferrer');
+    return navigate(`/adminconsole/${getProductDto.pid}`);
   }
 
   const buttons = [
