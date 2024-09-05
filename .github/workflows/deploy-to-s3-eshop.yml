@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
         with:
-          fetch-depth: 1 # 仅获取最新的提交，减少数据量
+          ref: dist
 
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@v0.5.0 # 使用稳定版本
