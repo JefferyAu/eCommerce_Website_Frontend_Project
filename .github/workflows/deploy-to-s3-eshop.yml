@@ -1,0 +1,29 @@
+name: deploy to s3
+on:
+  push:
+    branches:
+      - master #set the branch you want to auto-deploy from
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout dist
+        uses: actions/checkout@master
+        with:
+          ref: dist
+          
+      - name: sync s3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete --exclude '.git*/*'
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          PATHS: '/*'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
