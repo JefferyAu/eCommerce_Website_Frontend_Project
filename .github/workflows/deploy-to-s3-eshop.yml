@@ -1,25 +1,29 @@
-name: deploy to s3
+name: Deploy to S3
+
 on:
   push:
     branches:
-      - master #set the branch you want to auto-deploy from
+      - master # 设置要自动部署的分支
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout dist
-        uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          ref: dist
-          
-      - name: sync s3
-        uses: jakejarvis/s3-sync-action@master
+          fetch-depth: 1 # 仅获取最新的提交，减少数据量
+
+      - name: Sync to S3
+        uses: jakejarvis/s3-sync-action@v0.5.0 # 使用稳定版本
         with:
           args: --follow-symlinks --delete --exclude '.git*/*'
+        env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          
+
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
