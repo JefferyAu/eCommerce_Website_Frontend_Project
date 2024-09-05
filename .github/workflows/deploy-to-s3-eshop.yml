@@ -19,6 +19,7 @@ jobs:
         uses: jakejarvis/s3-sync-action@v0.5.0 # 使用稳定版本
         with:
           args: --follow-symlinks --delete --exclude '.git*/*'
+          source-dir: dist # 指定要上传的源目录
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
