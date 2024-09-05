@@ -1,36 +1,41 @@
-name: Deploy to S3
+name: Build and Upload to S3
 
 on:
   push:
     branches:
-      - master # 设置要自动部署的分支
+      - master
 
 jobs:
-  deploy:
+  build-and-upload:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
-        with:
-          ref: dist
+        uses: actions/checkout@v3
 
-      - name: Sync to S3
-        uses: jakejarvis/s3-sync-action@v0.5.0 # 使用稳定版本
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          args: --follow-symlinks --delete --exclude '.git*/*'
-          source-dir: dist # 指定要上传的源目录
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-southeast-1' # 请根据您的情况设置区域
+          node-version: '18' # 根據您的項目需求選擇合適的 Node.js 版本
 
-      - name: Invalidate CloudFront
-        uses: chetan/invalidate-cloudfront-action@v2
-        env:
-          DISTRIBUTION: ${{ secrets.DISTRIBUTION }} # 确保此 Secret 已设置
-          PATHS: '/*'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-east-1' # 请根据您的情况设置区域
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # 確保這個腳本是用來生成 dist 資料夾的
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: |
+          aws s3 sync ./dist/ s3://${{ secrets.S3_BUCKET_NAME }}/
