@@ -4,7 +4,7 @@ export default function BlackButton(){
   const blackTheme = createTheme({
     palette: {
       primary: {
-        main: '#0000', // 黑色主色調
+        main: '#000', // 黑色主色調
       },
     },
   });
