@@ -15,3 +15,10 @@ export interface TransationItemDto {
   quantity: number;
   subtotal: number;
 }
+
+export interface TransactionListDto {
+  tid:       number;
+  datetime:  string;
+  status:    string;
+  total:     number;
+}

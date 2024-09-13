@@ -1,7 +1,8 @@
 import axios from "axios";
 import * as FirebaseAuthService from "../authService/FirebaseAuthService.ts";
-import {TransactionDto} from "../data/transaction/Transaction.type.ts";
+import {TransactionDto, TransactionListDto} from "../data/transaction/Transaction.type.ts";
 import getEnvConfig from "../config/env/EnvConfig.ts";
+
 
 const baseUrl = getEnvConfig().baseUrl;
 
@@ -39,3 +40,10 @@ export const finishTransaction = async (tid:string) => {
   return responseData.data;
 }
 
+export const getTransactionListDto = async () =>{
+  const responseData = await axios.get<TransactionListDto[]>(
+    `${baseUrl}/transaction/all`,
+    await FirebaseAuthService.getAuthConfig()
+  );
+  return responseData.data;
+}

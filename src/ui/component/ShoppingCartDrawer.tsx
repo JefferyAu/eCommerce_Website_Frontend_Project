@@ -1,26 +1,38 @@
 import {Box, Button, Container, Divider, Drawer, Typography} from "@mui/material";
 import ShoppingCartDrawerItem from "./ShoppingCartDrawerItem.tsx";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CartItemDto} from "../../data/CartItem/CartItem.type.ts";
 import LoadingContainer from "./LoadingContainer.tsx";
 import * as CartItemApi from "../../api/CartItemApi.ts"
 import {useNavigate} from "react-router-dom";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {LoginUserContext} from "../../context/LoginUserContext.ts";
 
 type Props = {
   open:boolean,
-  closeDrawer: () => void
+  closeDrawer: () => void,
+  handleCartItemNumber: (cartItemNumber:number)=>void
 }
 
-export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
+export  default function ShoppingCartDrawer({open,
+                                              closeDrawer,
+                                              handleCartItemNumber}:Props){
   const [cartItemDtoList,setCartItemDtoList] = useState<CartItemDto[]|undefined>(undefined);
   const navigate = useNavigate();
+  const loginUser = useContext(LoginUserContext);
 
   const getUserCart = async () => {
     setCartItemDtoList(()=>undefined);
     const responseDataList = await CartItemApi.getUserCart();
     setCartItemDtoList(responseDataList);
+    handleCartItemNumber(responseDataList.length);
   }
+
+  useEffect(() => {
+    if(loginUser){
+      getUserCart()
+    }
+  }, [loginUser]);
 
   const blackTheme = createTheme({
     palette: {
@@ -49,16 +61,16 @@ export  default function ShoppingCartDrawer({open,closeDrawer}:Props){
           </Button>
             </Container>
             <Container>
-          <Button
-            variant="contained"
-            sx={{
-              mt:1,
-              mb:2,
-              width:"322px"
-            }}
-          >
-            Checkout
-          </Button>
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  sx={{*/}
+          {/*    mt:1,*/}
+          {/*    mb:2,*/}
+          {/*    width:"322px"*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  Checkout*/}
+          {/*</Button>*/}
             </Container>
           </ThemeProvider >
         </>

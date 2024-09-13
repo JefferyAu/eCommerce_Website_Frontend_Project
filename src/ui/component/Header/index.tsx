@@ -1,4 +1,4 @@
-import {AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Badge, Box, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
@@ -12,6 +12,12 @@ export default function Header(){
   const loginUser = useContext(LoginUserContext);
   const navigate = useNavigate();
 
+  const [cartItemNumber, setCartItemNumber] = useState<number>(0);
+
+
+  const handleCartItemNumber = (cartItemNumber:number) =>{
+    setCartItemNumber(cartItemNumber);
+  }
 
   const closeDrawer = () =>{
     setDrawerOpen(false);
@@ -28,9 +34,9 @@ export default function Header(){
         }}
         >
 
-          {/*<Badge badgeContent={4} color="primary">*/}
+          <Badge badgeContent={cartItemNumber} color="primary">
             <ShoppingCartIcon/>
-          {/*</Badge>*/}
+          </Badge>
 
         </IconButton>
           <AccountMenu/>
@@ -84,7 +90,11 @@ export default function Header(){
         </Toolbar>
       </AppBar>
     </Box>
-      <ShoppingCartDrawer open={drawerOpen} closeDrawer={closeDrawer}/>
+      <ShoppingCartDrawer
+        open={drawerOpen}
+        closeDrawer={closeDrawer}
+        handleCartItemNumber={handleCartItemNumber}
+      />
     </>
   )
 }

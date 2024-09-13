@@ -48,7 +48,7 @@ export default function ProductDetailContainer({productDetailDto}:Props){
   const handleAddToCart = async () =>{
     try{
       setIsAddingToCart(true);
-      await CartItemApi.putCartItem(productDetailDto.pid,quantity)
+      await CartItemApi.putCartItem(productDetailDto.pid,quantity);
       setSnackbarOpen(true);
       setIsAddingToCart(false);
     }catch (err){

@@ -12,6 +12,7 @@ import {useContext, useEffect, useState} from "react";
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import EmailIcon from '@mui/icons-material/Email';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import PaidIcon from '@mui/icons-material/Paid';
 import * as UserApi from "../../../api/UserApi.ts";
 
 export default function AccountMenu() {
@@ -45,18 +46,23 @@ export default function AccountMenu() {
   const renderAdminButton = () =>{
     if(isAdmin){
       return(
-        <>
           <MenuItem onClick={()=>(navigate(`/adminconsole`))}>
             <IconButton>
               <SupervisorAccountIcon/>
             </IconButton>
             Admin Console
           </MenuItem>
-        </>
       )
     }else {
       return (
-        <></>
+        <>
+          <MenuItem onClick={()=>(navigate(`/pasttransactions`))}>
+            <IconButton>
+              <PaidIcon/>
+            </IconButton>
+            Pass Transactions
+          </MenuItem>
+        </>
       )
     }
   }
