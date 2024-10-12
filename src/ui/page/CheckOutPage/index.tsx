@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import {useContext, useEffect, useState} from "react";
 import {TransactionDto} from "../../../data/transaction/Transaction.type.ts";
 import LoadingContainer from "../../component/LoadingContainer.tsx";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import * as TransactionApi from "../../../api/TransactionApi.ts"
 import {LoginUserContext} from "../../../context/LoginUserContext.ts";
 import LoadingBackdrop from "../../component/LoadingBackdrop.tsx";
@@ -18,6 +18,7 @@ type Params ={
 export default function CheckOutPage(){
   const [transactionDto,setTransactionDto] = useState<TransactionDto | undefined>(undefined);
   const [loadingBackdropOpen,setLoadingBackdropOpen] = useState<boolean>(false);
+  // const [checkOutSession,setCheckOutSession] = useState<string>("");
 
   const {transactionId} = useParams<Params>();
 
@@ -39,15 +40,34 @@ export default function CheckOutPage(){
     }
   }
 
+  // const createCheckoutSession = async () => {
+  //   if (!transactionId) {
+  //     console.error('Transaction ID is missing');
+  //     navigate(`/error`);
+  //     return;
+  //   }
+  //   try {
+  //     const responseData = await TransactionApi.createCheckoutSession(transactionId);
+  //     setCheckOutSession(responseData);
+  //   } catch (err) {
+  //     console.error('Error creating checkout session:', err);
+  //     navigate(`/error`);
+  //   }
+  // }
+
+  // const handleCheckOutClick = () => {
+  //   return window.location.href = `${checkOutSession}`;
+  // };
+
   const handleCheckOut = async () =>{
     if(!transactionId){
       navigate(`/error`)
     }
     try{
       setLoadingBackdropOpen(true)
-      await TransactionApi.payTransaction(transactionId!);
-      await TransactionApi.finishTransaction(transactionId!);
-      navigate('/thankyou')
+      const response =  await TransactionApi.payTransaction(transactionId!);
+      window.location.href = `${response}`;
+      // await TransactionApi.finishTransaction(transactionId!);
     }catch (err){
       console.error(err);
       navigate("/error")
@@ -56,12 +76,12 @@ export default function CheckOutPage(){
 
   useEffect(() => {
     if(loginUser){
-      getTransactionByTid()
+      getTransactionByTid();
+      // createCheckoutSession();
     }else if(loginUser === null){
       navigate("/")
     }
   }, [loginUser]);
-
 
 
   const renderCheckOutContainer = () =>{
@@ -80,6 +100,11 @@ export default function CheckOutPage(){
             >
               Check Out
             </Button>
+            {/*<Button*/}
+            {/*  onClick={handleCheckOutClick}*/}
+            {/*>*/}
+            {/*  Pay*/}
+            {/*</Button>*/}
           </Stack>
         </Container>
       )

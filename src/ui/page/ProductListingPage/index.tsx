@@ -10,11 +10,23 @@ import CarouselBanner from "../../component/CarouselBanner";
 import SearchSection from "./component/SearchSection.tsx";
 import CategoryFilter from "./component/CategoryFilter.tsx";
 
+
 export default function ProductListingPage(){
 
   const [getProductDtoList, setProductDtoList] = useState<ProductDto[] | undefined>(undefined);
   const [productNameFilter,setProductNameFilter] = useState<string>("");
   const [categoryFilter,setCategoryFilter] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [productPerPage, setProductPerPage] = useState<number>(10);
+
+  const handlePageChange = (page:number) =>{
+    setPage(page);
+  }
+
+  const handleProductPerPage = (productPerPage:number) =>{
+    setProductPerPage(productPerPage);
+    setPage(1);
+  }
 
   const handleProductNameFilterChange = (productNameFilter:string) =>{
     setProductNameFilter(productNameFilter)
@@ -66,7 +78,12 @@ export default function ProductListingPage(){
             <ProductListContainer
               productNameFilter={productNameFilter}
               categoryFilter={categoryFilter}
-              getProductDtoList={getProductDtoList}/>
+              getProductDtoList={getProductDtoList}
+              page={page}
+              handlePageChange={handlePageChange}
+              productPerPage={productPerPage}
+              handleProductPerPage={handleProductPerPage}
+            />
             :<LoadingContainer/>
         }
       </Container>

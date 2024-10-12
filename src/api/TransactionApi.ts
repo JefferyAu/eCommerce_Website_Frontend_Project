@@ -24,11 +24,12 @@ export const prepareTransaction = async () => {
 }
 
 export const payTransaction = async (tid:string) => {
-   await axios.patch(
+   const response = await axios.patch(
     `${baseUrl}/transaction/${tid}/pay`,
     null,
     await  FirebaseAuthService.getAuthConfig()
   );
+   return response.data;
 }
 
 export const finishTransaction = async (tid:string) => {
@@ -47,3 +48,11 @@ export const getTransactionListDto = async () =>{
   );
   return responseData.data;
 }
+
+// export const createCheckoutSession = async (tid:string)=>{
+//  const responseData = await axios.post(
+//     `${baseUrl}/public/api/create-checkout-session/${tid}`,
+//       await FirebaseAuthService.getAuthConfig()
+//   );
+//   return responseData.data;
+// }

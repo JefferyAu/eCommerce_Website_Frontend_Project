@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
     element: <CheckOutPage/>
   },
   {
-    path: "/thankyou",
+    path: "/thankyou/:tid",
     element: <ThankYouPage/>
   },
   {
